@@ -100,7 +100,7 @@ public class PrometeoCarController : MonoBehaviour
       //[Header("Sounds")]
       [Space(10)]
       //The following variable lets you to set up sounds for your car such as the car engine or tire screech sounds.
-      public bool useSounds = false;
+      public bool useSounds = true;
       public AudioSource carEngineSound; // This variable stores the sound of the car engine.
       public AudioSource tireScreechSound; // This variable stores the sound of the tire screech (when the car is drifting).
       float initialCarEngineSoundPitch; // Used to store the initial pitch of the car engine sound.
@@ -397,7 +397,8 @@ public class PrometeoCarController : MonoBehaviour
           if(carEngineSound != null){
             float engineSoundPitch = initialCarEngineSoundPitch + (Mathf.Abs(carRigidbody.velocity.magnitude) / 25f);
             carEngineSound.pitch = engineSoundPitch;
-          }
+                    carEngineSound.Play();
+                }
           if((isDrifting) || (isTractionLocked && Mathf.Abs(carSpeed) > 12f)){
             if(!tireScreechSound.isPlaying){
               tireScreechSound.Play();
