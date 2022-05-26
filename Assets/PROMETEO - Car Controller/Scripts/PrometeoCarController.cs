@@ -162,6 +162,21 @@ public class PrometeoCarController : MonoBehaviour
       WheelFrictionCurve RRwheelFriction;
       float RRWextremumSlip;
 
+    [Space(20)]
+    //[Header("Lights")]
+
+    public Material LeftIndicatorMaterial;
+    public Material RightIndicatorMaterial;
+    public Material BrakeLightMaterial;
+    public Material ReverseLightMaterial;
+    public float EmissionIntensity;
+
+
+
+
+
+
+
 
 
     // Start is called before the first frame update
@@ -430,6 +445,30 @@ public class PrometeoCarController : MonoBehaviour
       }
 
 
+
+      // lights
+
+      if (deceleratingCar)
+        {
+            var coltmp = new Color(255,0,0,255);
+            BrakeLightMaterial.SetColor("_Color", coltmp);
+            BrakeLightMaterial.SetColor("_EmissionColor", coltmp * EmissionIntensity);
+            Debug.Log("slowing");
+        }
+      else
+        {
+            var coltmp = Color.grey;
+            BrakeLightMaterial.SetColor("_Color", coltmp);
+            BrakeLightMaterial.SetColor("_EmissionColor", coltmp * 0.1f);
+            Debug.Log("not slowing");
+        }
+
+
+
+
+
+
+
       // We call the method AnimateWheelMeshes() in order to match the wheel collider movements with the 3D meshes of the wheels.
       AnimateWheelMeshes();
 
@@ -500,6 +539,13 @@ public class PrometeoCarController : MonoBehaviour
       var steeringAngle = steeringAxis * maxSteeringAngle;
       frontLeftCollider.steerAngle = Mathf.Lerp(frontLeftCollider.steerAngle, steeringAngle, steeringSpeed);
       frontRightCollider.steerAngle = Mathf.Lerp(frontRightCollider.steerAngle, steeringAngle, steeringSpeed);
+
+
+        var coltmp = new Color(255, 165, 0, 255);
+        LeftIndicatorMaterial.SetColor("_Color", coltmp);
+        LeftIndicatorMaterial.SetColor("_EmissionColor", coltmp * EmissionIntensity);
+        Debug.Log("right");
+
     }
 
     //The following method turns the front car wheels to the right. The speed of this movement will depend on the steeringSpeed variable.
@@ -511,6 +557,14 @@ public class PrometeoCarController : MonoBehaviour
       var steeringAngle = steeringAxis * maxSteeringAngle;
       frontLeftCollider.steerAngle = Mathf.Lerp(frontLeftCollider.steerAngle, steeringAngle, steeringSpeed);
       frontRightCollider.steerAngle = Mathf.Lerp(frontRightCollider.steerAngle, steeringAngle, steeringSpeed);
+
+
+
+        var coltmp = new Color(255, 165, 0, 255);
+        RightIndicatorMaterial.SetColor("_Color", coltmp);
+        RightIndicatorMaterial.SetColor("_EmissionColor", coltmp * EmissionIntensity);
+        Debug.Log("right");
+
     }
 
     //The following method takes the front car wheels to their default position (rotation = 0). The speed of this movement will depend
@@ -587,9 +641,29 @@ public class PrometeoCarController : MonoBehaviour
 
     // This method apply positive torque to the wheels in order to go forward.
     public void GoForward(){
-      //If the forces aplied to the rigidbody in the 'x' asis are greater than
-      //3f, it means that the car is losing traction, then the car will start emitting particle systems.
-      if(Mathf.Abs(localVelocityX) > 4f){
+
+
+
+        var coltmp = Color.grey; 
+        ReverseLightMaterial.SetColor("_Color", coltmp * 0.1f);
+        ReverseLightMaterial.SetColor("_EmissionColor", coltmp * 0.1f);
+        Debug.Log("rev");
+
+
+        coltmp = Color.grey;
+        RightIndicatorMaterial.SetColor("_Color", coltmp);
+        RightIndicatorMaterial.SetColor("_EmissionColor", coltmp * 0.1f);
+        Debug.Log("right");
+
+
+        coltmp = Color.grey;
+        LeftIndicatorMaterial.SetColor("_Color", coltmp);
+        LeftIndicatorMaterial.SetColor("_EmissionColor", coltmp * 0.1f);
+        Debug.Log("left");
+
+        //If the forces aplied to the rigidbody in the 'x' asis are greater than
+        //3f, it means that the car is losing traction, then the car will start emitting particle systems.
+        if (Mathf.Abs(localVelocityX) > 4f){
         isDrifting = true;
         DriftCarPS();
       }else{
@@ -631,9 +705,32 @@ public class PrometeoCarController : MonoBehaviour
 
     // This method apply negative torque to the wheels in order to go backwards.
     public void GoReverse(){
-      //If the forces aplied to the rigidbody in the 'x' asis are greater than
-      //3f, it means that the car is losing traction, then the car will start emitting particle systems.
-      if(Mathf.Abs(localVelocityX) > 4f){
+
+
+
+            var coltmp = new Color(255, 255, 255, 255);
+            ReverseLightMaterial.SetColor("_Color", coltmp);
+            ReverseLightMaterial.SetColor("_EmissionColor", coltmp * EmissionIntensity);
+            Debug.Log("rev");
+
+
+
+        coltmp = Color.grey;
+        RightIndicatorMaterial.SetColor("_Color", coltmp);
+        RightIndicatorMaterial.SetColor("_EmissionColor", coltmp * 0.1f);
+        Debug.Log("right");
+
+
+        coltmp = Color.grey;
+        LeftIndicatorMaterial.SetColor("_Color", coltmp);
+        LeftIndicatorMaterial.SetColor("_EmissionColor", coltmp * 0.1f);
+        Debug.Log("left");
+
+
+
+        //If the forces aplied to the rigidbody in the 'x' asis are greater than
+        //3f, it means that the car is losing traction, then the car will start emitting particle systems.
+        if (Mathf.Abs(localVelocityX) > 4f){
         isDrifting = true;
         DriftCarPS();
       }else{
@@ -685,7 +782,12 @@ public class PrometeoCarController : MonoBehaviour
     // 1 is the slowest and 10 is the fastest deceleration. This method is called by the function InvokeRepeating,
     // usually every 0.1f when the user is not pressing W (throttle), S (reverse) or Space bar (handbrake).
     public void DecelerateCar(){
-      if(Mathf.Abs(localVelocityX) > 4f){
+
+
+
+
+
+        if (Mathf.Abs(localVelocityX) > 4f){
         isDrifting = true;
         DriftCarPS();
       }else{
@@ -714,7 +816,8 @@ public class PrometeoCarController : MonoBehaviour
       if(carRigidbody.velocity.magnitude < 0.25f){
         carRigidbody.velocity = Vector3.zero;
         CancelInvoke("DecelerateCar");
-      }
+
+        }
     }
 
     // This function applies brake torque to the wheels according to the brake force given by the user.
