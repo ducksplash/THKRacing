@@ -149,6 +149,16 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: wingmirrs
     second: {fileID: 2100000, guid: f04ac5a26acb49e448a5e5ca3feac40f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: wingmirrsleft
+    second: {fileID: 2100000, guid: f04ac5a26acb49e448a5e5ca3feac40f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: wingmirrsright
+    second: {fileID: 2100000, guid: f04ac5a26acb49e448a5e5ca3feac40f, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0

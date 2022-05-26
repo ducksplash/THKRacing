@@ -264,8 +264,12 @@ public class PrometeoCarController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
+
+
+
+
 
       //CAR DATA
 
@@ -451,7 +455,7 @@ public class PrometeoCarController : MonoBehaviour
                 }
           if((isDrifting) || (isTractionLocked && Mathf.Abs(carSpeed) > 12f)){
             if(!tireScreechSound.isPlaying){
-              tireScreechSound.Play();
+              tireScreechSound.Stop();
             }
           }else if((!isDrifting) && (!isTractionLocked || Mathf.Abs(carSpeed) < 12f)){
             tireScreechSound.Stop();
@@ -511,6 +515,27 @@ public class PrometeoCarController : MonoBehaviour
       frontLeftCollider.steerAngle = Mathf.Lerp(frontLeftCollider.steerAngle, steeringAngle, steeringSpeed);
       frontRightCollider.steerAngle = Mathf.Lerp(frontRightCollider.steerAngle, steeringAngle, steeringSpeed);
     }
+
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.transform.name.ToLower().Contains("ramp"))
+        {
+            Debug.Log("joined romp");
+            gameObject.GetComponent<Rigidbody>().mass = 300;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.transform.name.ToLower().Contains("ramp"))
+        {
+            Debug.Log("left romp");
+            gameObject.GetComponent<Rigidbody>().mass = 800;
+        }
+    }
+
+
 
     // This method matches both the position and rotation of the WheelColliders with the WheelMeshes.
     void AnimateWheelMeshes(){
