@@ -171,8 +171,8 @@ public class PrometeoCarController : MonoBehaviour
     public Material ReverseLightMaterial;
     public float EmissionIntensity;
 
-
-
+    private bool Jumping;
+    private bool onTheGround;
 
 
 
@@ -182,6 +182,7 @@ public class PrometeoCarController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        onTheGround = true;
       //In this part, we set the 'carRigidbody' value with the Rigidbody attached to this
       //gameObject. Also, we define the center of mass of the car with the Vector3 given
       //in the inspector.
@@ -287,18 +288,38 @@ public class PrometeoCarController : MonoBehaviour
 
     }
 
-    // Update is called once per frame
-    void FixedUpdate()
+
+    void Jump()
+    {
+            Jumping = true;
+            gameObject.GetComponent<Rigidbody>().AddForce(0, 2000, 0);
+            onTheGround = false;
+            Jumping = false;
+    }
+
+
+
+// Update is called once per frame
+void FixedUpdate()
     {
 
 
 
 
+        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.RightShift)) && onTheGround)
+        {
+            Jump();
+        }
 
-      //CAR DATA
 
-      // We determine the speed of the car.
-      carSpeed = (2 * Mathf.PI * frontLeftCollider.radius * frontLeftCollider.rpm * 60) / 1000;
+
+
+
+
+        //CAR DATA
+
+        // We determine the speed of the car.
+        carSpeed = (2 * Mathf.PI * frontLeftCollider.radius * frontLeftCollider.rpm * 60) / 1000;
       // Save the local velocity of the car in the x axis. Used to know if the car is drifting.
       localVelocityX = transform.InverseTransformDirection(carRigidbody.velocity).x;
       // Save the local velocity of the car in the z axis. Used to know if the car is going forward or backwards.
@@ -591,7 +612,16 @@ public class PrometeoCarController : MonoBehaviour
             Debug.Log("joined romp");
             gameObject.GetComponent<Rigidbody>().mass = 300;
         }
+
+        if (other.gameObject.layer == 0)
+        {
+            Debug.Log("gnd");
+            onTheGround = true;
+
+        }
+
     }
+
 
     private void OnTriggerExit(Collider other)
     {
@@ -599,6 +629,8 @@ public class PrometeoCarController : MonoBehaviour
         {
             Debug.Log("left romp");
             gameObject.GetComponent<Rigidbody>().mass = 800;
+            onTheGround = false;
+
         }
     }
 
@@ -664,11 +696,11 @@ public class PrometeoCarController : MonoBehaviour
         //If the forces aplied to the rigidbody in the 'x' asis are greater than
         //3f, it means that the car is losing traction, then the car will start emitting particle systems.
         if (Mathf.Abs(localVelocityX) > 4f){
-        isDrifting = true;
-        DriftCarPS();
+       // isDrifting = true;
+       // DriftCarPS();
       }else{
-        isDrifting = false;
-        DriftCarPS();
+       // isDrifting = false;
+       // DriftCarPS();
       }
       // The following part sets the throttle power to 1 smoothly.
       throttleAxis = throttleAxis + (Time.deltaTime * 3f);
