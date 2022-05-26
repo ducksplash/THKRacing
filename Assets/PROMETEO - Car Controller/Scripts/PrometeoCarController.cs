@@ -18,6 +18,8 @@ using TMPro;
 public class PrometeoCarController : MonoBehaviour
 {
 
+
+
     //CAR SETUP
 
       [Space(20)]
@@ -93,10 +95,11 @@ public class PrometeoCarController : MonoBehaviour
       //The following variable lets you to set up a UI text to display the speed of your car.
       public bool useUI = false;
       public TextMeshProUGUI carSpeedText; // Used to store the UI object that is going to show the speed of the car.
+      public TextMeshProUGUI speedInCar; // Used to store the UI object that is going to show the speed of the car.
 
     //SOUNDS
 
-      [Space(20)]
+    [Space(20)]
       //[Header("Sounds")]
       [Space(10)]
       //The following variable lets you to set up sounds for your car such as the car engine or tire screech sounds.
@@ -159,6 +162,8 @@ public class PrometeoCarController : MonoBehaviour
       WheelFrictionCurve RRwheelFriction;
       float RRWextremumSlip;
 
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -210,10 +215,14 @@ public class PrometeoCarController : MonoBehaviour
         // in 0 seconds, and repeatedly called every 0.1 seconds.
         if(useUI){
           InvokeRepeating("CarSpeedUI", 0f, 0.1f);
-        }else if(!useUI){
-          if(carSpeedText != null){
-            carSpeedText.text = "0";
-          }
+        }
+        else if(!useUI)
+        {
+          if(carSpeedText != null)
+            {
+                carSpeedText.text = "0";
+                speedInCar.text = "0";
+            }
         }
 
         if(useSounds){
@@ -432,8 +441,12 @@ public class PrometeoCarController : MonoBehaviour
       if(useUI){
           try{
             float absoluteCarSpeed = Mathf.Abs(carSpeed);
-            carSpeedText.text = Mathf.RoundToInt(absoluteCarSpeed).ToString();
-          }catch(Exception ex){
+                carSpeedText.text = Mathf.RoundToInt(absoluteCarSpeed).ToString();
+                speedInCar.text = Mathf.RoundToInt(absoluteCarSpeed).ToString();
+
+
+            }
+            catch(Exception ex){
             Debug.LogWarning(ex);
           }
       }
