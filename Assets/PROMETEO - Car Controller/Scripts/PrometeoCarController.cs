@@ -551,7 +551,7 @@ public class PrometeoCarController : MonoBehaviour
     public void GoForward(){
       //If the forces aplied to the rigidbody in the 'x' asis are greater than
       //3f, it means that the car is losing traction, then the car will start emitting particle systems.
-      if(Mathf.Abs(localVelocityX) > 2.5f){
+      if(Mathf.Abs(localVelocityX) > 4f){
         isDrifting = true;
         DriftCarPS();
       }else{
@@ -595,7 +595,7 @@ public class PrometeoCarController : MonoBehaviour
     public void GoReverse(){
       //If the forces aplied to the rigidbody in the 'x' asis are greater than
       //3f, it means that the car is losing traction, then the car will start emitting particle systems.
-      if(Mathf.Abs(localVelocityX) > 2.5f){
+      if(Mathf.Abs(localVelocityX) > 4f){
         isDrifting = true;
         DriftCarPS();
       }else{
@@ -647,7 +647,7 @@ public class PrometeoCarController : MonoBehaviour
     // 1 is the slowest and 10 is the fastest deceleration. This method is called by the function InvokeRepeating,
     // usually every 0.1f when the user is not pressing W (throttle), S (reverse) or Space bar (handbrake).
     public void DecelerateCar(){
-      if(Mathf.Abs(localVelocityX) > 2.5f){
+      if(Mathf.Abs(localVelocityX) > 4f){
         isDrifting = true;
         DriftCarPS();
       }else{
@@ -706,7 +706,7 @@ public class PrometeoCarController : MonoBehaviour
       }
       //If the forces aplied to the rigidbody in the 'x' asis are greater than
       //3f, it means that the car lost its traction, then the car will start emitting particle systems.
-      if(Mathf.Abs(localVelocityX) > 2.5f){
+      if(Mathf.Abs(localVelocityX) > 4f){
         isDrifting = true;
       }else{
         isDrifting = false;
