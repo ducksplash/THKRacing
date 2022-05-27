@@ -27,9 +27,9 @@ public class SwitchCams : MonoBehaviour
         if (CamNo == 0)
         {
             Debug.Log(CamNo);
-            CamOneLabel.color = new Color32(100, 100, 100, 255);
-            CamTwoLabel.color = new Color32(255, 255, 255, 255);
-            CamThreeLabel.color = new Color32(100, 100, 100, 255);
+            CamOneLabel.color = new Color32(190, 190, 190, 255);
+            CamTwoLabel.color = new Color32(0, 170, 0, 255);
+            CamThreeLabel.color = new Color32(190, 190, 190, 255);
             CamOne.enabled = false;
             CamTwo.enabled = true;
             CamThree.enabled = false;
@@ -44,9 +44,9 @@ public class SwitchCams : MonoBehaviour
         else if (CamNo == 1)
         {
             Debug.Log(CamNo);
-            CamOneLabel.color = new Color32(100, 100, 100, 255);
-            CamTwoLabel.color = new Color32(100, 100, 100, 255);
-            CamThreeLabel.color = new Color32(255, 255, 255, 255);
+            CamOneLabel.color = new Color32(190, 190, 190, 255);
+            CamTwoLabel.color = new Color32(190, 190, 190, 255);
+            CamThreeLabel.color = new Color32(0, 170, 0, 255);
             CamOne.enabled = false;
             CamTwo.enabled = false;
             CamThree.enabled = true;
@@ -60,9 +60,9 @@ public class SwitchCams : MonoBehaviour
         else if (CamNo == 2)
         {
             Debug.Log(CamNo);
-            CamOneLabel.color = new Color32(255, 255, 255, 255);
-            CamTwoLabel.color = new Color32(100, 100, 100, 255);
-            CamThreeLabel.color = new Color32(100, 100, 100, 255);
+            CamOneLabel.color = new Color32(0, 170, 0, 255);
+            CamTwoLabel.color = new Color32(190, 190, 190, 255);
+            CamThreeLabel.color = new Color32(190, 190, 190, 255);
             CamOne.enabled = true;
             CamTwo.enabled = false;
             CamThree.enabled = false;
