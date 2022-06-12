@@ -163,7 +163,7 @@ public class PrometeoCarController : MonoBehaviour
       float RRWextremumSlip;
 
     [Space(20)]
-    //[Header("Lights")]
+    [Header("Lights")]
 
     public Material LeftIndicatorMaterial;
     public Material RightIndicatorMaterial;
@@ -291,6 +291,7 @@ public class PrometeoCarController : MonoBehaviour
 
     void Jump()
     {
+        Debug.Log("jumping");
             Jumping = true;
             gameObject.GetComponent<Rigidbody>().AddForce(0, 2000, 0);
             onTheGround = false;
@@ -609,7 +610,7 @@ void FixedUpdate()
     {
         if (other.transform.name.ToLower().Contains("ramp"))
         {
-            Debug.Log("joined romp");
+            Debug.Log("joined ramp");
             gameObject.GetComponent<Rigidbody>().mass = 300;
         }
 
